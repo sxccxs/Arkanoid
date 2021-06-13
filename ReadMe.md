@@ -4,7 +4,7 @@ It's a copy of an old game [Arkanoid](https://en.wikipedia.org/wiki/Arkanoid).
 
 This project was made with python library [PyGame](https://www.pygame.org/news).
 
-![](Readme\arkanoid.gif)
+![](ReadMe/arkanoid.gif)
 
 ## Installation
 
