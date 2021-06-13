@@ -39,6 +39,9 @@ pg.init()
 pg.display.set_caption("Arkanoid")
 icon = pg.image.load(r'img\app_icon.png')
 pg.display.set_icon(icon)
+# Invisible cursor
+pg.mouse.set_cursor((8, 8), (0, 0), (0, 0, 0, 0, 0, 0,
+                    0, 0), (0, 0, 0, 0, 0, 0, 0, 0))
 
 # Constants
 SCREEN_WIDTH = 560
