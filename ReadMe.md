@@ -1,4 +1,4 @@
-# ToDo Web App
+# Arkanoid Game
 
 It's a copy of an old game [Arkanoid](https://en.wikipedia.org/wiki/Arkanoid).
 
