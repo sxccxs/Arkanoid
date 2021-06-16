@@ -21,22 +21,24 @@ class Ball:
     def __init__(self, x: float, y: float, r: float,
                  v: float = 3, start_direction: tuple = (),
                  color: str = '#02ccfe'):
-        self.position = Vector2(x, y)
         self.radius = r
         self.velocity = v
         if start_direction == ():
-            # Changing random seed to get different
-            #   directions in one programm run
-            random.seed(os.urandom(10))
-            start_direction = (random.uniform(-0.9, 0.9),
-                               random.uniform(0.1, 0.9))
+            # Making sure that none of dirctions is 0
+            while not start_direction or 0 in start_direction:
+                # Changing random seed to get different
+                #   directions in one programm run
+                random.seed(os.urandom(10))
+                start_direction = (random.uniform(-0.9, 0.9),
+                                   random.uniform(0.3, 0.9))
+
         self.direction = pg.math.Vector2(start_direction).normalize()
         self.color = pg.Color(color)
-        self.rect = pg.Rect(x - r, y - r, r, r)
+        self.rect = pg.Rect(x - r, y - r, 2*r, 2*r)
 
     def draw(self, screen: pg.Surface) -> None:
         '''Draws ball'''
-        pg.draw.circle(screen, self.color, self.position, self.radius)
+        pg.draw.circle(screen, self.color, self.rect.center, self.radius)
 
     def game_over(self, screen_height: int) -> bool:
         '''Returns true if ball is outside of the screen'''
@@ -48,8 +50,7 @@ class Ball:
 
     def update(self) -> None:
         '''Updates ball's position after movement'''
-        self.position += self.direction * self.velocity
-        self.rect = pg.Rect(self.position, (self.radius, self.radius))
+        self.rect.center += self.direction * self.velocity
 
     def collide_other(self, other: Union[Block, Paddle]):
         '''Makes ball to collide with paddle and blocks'''
@@ -82,14 +83,11 @@ class Ball:
     def collide_walls(self, screen_borders: dict[str, int]):
         '''Makes ball not to go out of the borders'''
         if self.rect.left <= screen_borders.get('left'):
-            self.position.x = screen_borders.get('left')
             self.rect.x = screen_borders.get('left')
             self.reflect(self.directions.get('right'))
         elif self.rect.top <= screen_borders.get('top'):
-            self.position.y = screen_borders.get('top')
             self.rect.y = screen_borders.get('top')
             self.reflect(self.directions.get('bottom'))
         elif self.rect.right >= screen_borders.get('right'):
-            self.position.x = screen_borders.get('right') - self.radius
             self.rect.right = screen_borders.get('right')
             self.reflect(self.directions.get('left'))

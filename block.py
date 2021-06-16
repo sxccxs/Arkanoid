@@ -1,5 +1,4 @@
 import pygame as pg
-from pygame.math import Vector2
 
 
 class Block:
@@ -13,7 +12,6 @@ class Block:
 
     def __init__(self, x: float, y: float, w: float,
                  h: float, lifetime: int = 1):
-        self.position = Vector2(x, y)
         self.width = w
         self.height = h
         self.lifetime = lifetime

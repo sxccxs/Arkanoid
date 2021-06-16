@@ -30,7 +30,8 @@ def setup():
         i += 1
 
     board = Board(SCREEN_WIDTH, SCREEN_HEIGHT, paddle,
-                  ball, blocks, score,  r'img\board_bg.png', SCREEN_BORDERS)
+                  ball, blocks, score,  r'img\board_bg.png',
+                  SCREEN_BORDERS)
 
 
 pg.init()

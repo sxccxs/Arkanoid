@@ -1,5 +1,4 @@
 import pygame as pg
-from pygame.math import Vector2
 
 
 class Paddle:
@@ -7,7 +6,6 @@ class Paddle:
 
     def __init__(self, x: float, y: float, w: float,
                  h: float, v: float = 3, color: str = '#d0d0d0'):
-        self.position = Vector2(x, y)
         self.width = w
         self.height = h
         self.velocity = v
@@ -32,16 +30,13 @@ class Paddle:
 
     def update(self) -> None:
         '''Updates paddle's position after movement'''
-        self.position.x += self.velocity
-        self.rect = pg.Rect(self.position, (self.width, self.height))
+        self.rect.left += self.velocity
 
     def collide_walls(self, screen_borders: dict[str, int]) -> None:
         '''Makes paddle not to go out of the borders'''
         if self.rect.left <= screen_borders.get('left'):
-            self.position.x = screen_borders.get('left')
             self.rect.x = screen_borders.get('left')
             self.reflect_velocity()
         elif self.rect.right >= screen_borders.get('right'):
-            self.position.x = screen_borders.get('right') - self.width
             self.rect.right = screen_borders.get('right')
             self.reflect_velocity()
